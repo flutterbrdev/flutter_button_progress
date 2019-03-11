@@ -199,16 +199,6 @@ class _ProgressButtonState extends State<ProgressButton>
     } else if (_oldButtonState == ButtonState.error) {
       widthBegin = widget.errorWidth;
       colorBegin = widget.errorFillColor;
-
-      _scaleAnimation = Tween<double>(
-        begin: 0,
-        end: 1,
-      ).animate(
-        CurvedAnimation(
-          parent: animationController,
-          curve: Curves.elasticInOut,
-        ),
-      );
     } else {
       widthBegin = widget.width;
       colorBegin = widget.color;
