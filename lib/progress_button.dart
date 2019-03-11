@@ -73,7 +73,6 @@ class _ProgressButtonState extends State<ProgressButton>
   Animation<BorderRadius> _borderAnimation;
   Animation<double> _widthAnimation;
   Animation<Color> _colorAnimation;
-  Animation<double> _scaleAnimation;
 
   ButtonState _oldButtonState;
 
@@ -200,6 +199,16 @@ class _ProgressButtonState extends State<ProgressButton>
     } else if (_oldButtonState == ButtonState.error) {
       widthBegin = widget.errorWidth;
       colorBegin = widget.errorFillColor;
+
+      _scaleAnimation = Tween<double>(
+        begin: 0,
+        end: 1,
+      ).animate(
+        CurvedAnimation(
+          parent: animationController,
+          curve: Curves.elasticInOut,
+        ),
+      );
     } else {
       widthBegin = widget.width;
       colorBegin = widget.color;
@@ -222,16 +231,6 @@ class _ProgressButtonState extends State<ProgressButton>
       CurvedAnimation(
         parent: animationController,
         curve: Curves.linear,
-      ),
-    );
-
-    _scaleAnimation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: Curves.elasticInOut,
       ),
     );
 
@@ -277,10 +276,7 @@ class _ProgressButtonState extends State<ProgressButton>
         color: _colorAnimation.value,
         borderRadius: _borderAnimation.value,
       ),
-      child: Transform.scale(
-        scale: _scaleAnimation.value,
-        child: widget.errorChild,
-      ),
+      child: widget.errorChild,
     );
   }
 
@@ -337,10 +333,7 @@ class _ProgressButtonState extends State<ProgressButton>
         color: _colorAnimation.value,
         borderRadius: _borderAnimation.value,
       ),
-      child: Transform.scale(
-        scale: _scaleAnimation.value,
-        child: widget.successChild,
-      ),
+      child: widget.successChild,
     );
   }
 }
